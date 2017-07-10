@@ -1,0 +1,93 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-if.html">
+
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+
+<script src="../bower_components/uuid/dist/uuid.core.js"></script>
+
+<dom-module id="my-login">
+    <template>
+        <style>
+            :host {
+                border: 1px solid #666;
+                display: block;
+                padding: 16px
+            }
+
+            div {
+                color: #555;
+                font-weight: bold;
+            }
+        </style>
+
+        <firebase-auth id="auth" user="{{user}}"></firebase-auth>
+
+        <template is="dom-if" if="[[user]]">
+            <div>mylogin.html</div>
+
+            <p>Username is "[[user.displayName]]"</p>
+        </template>
+
+        <template is="dom-if" if="[[!user]]">
+            <paper-input id="email" name="email" label="Email address" required auto-validate></paper-input>
+            <paper-input id="password" name="password" label="Password" type="password" required
+                         auto-validate></paper-input>
+            <paper-button class="large" id="formSubmit" on-click="login" raised>Sign In</paper-button>
+        </template>
+
+
+        <paper-button raised on-click="changelogin" hidden$="[[!user]]">Change login</paper-button>
+        <paper-button raised on-click="logout" hidden$="[[!user]]">Sign out</paper-button>
+    </template>
+
+    <script>
+        class MyLogin extends Polymer.Element {
+
+            static get is() {
+                return 'my-login';
+            }
+
+            static get properties() {
+                return {
+                    user: {
+                        type: Object
+                    }
+                }
+            }
+
+            changelogin() {
+                this.user.updateProfile({
+                    displayName: UUID.generate()
+                }).then(() => {
+                    console.log('Display name changed with success');
+                    // the display name below is correct and updated
+                    console.log(this.user);
+
+                    // Notifying path on the displayName property force the binding
+                    // to refresh in the current element template but not in other
+                    // elements such as the header custom element that also displays
+                    // the user display name.
+                    // this.notifyPath('user.displayName');
+                }).catch(error => {
+                    console.log('Error while changing display name: ' + error.message);
+                });
+            }
+
+            login() {
+                const email = this.shadowRoot.querySelector('#email').value;
+                const password = this.shadowRoot.querySelector('#password').value;
+                return this.$.auth.signInWithEmailAndPassword(email, password);
+            }
+
+            logout() {
+                return this.$.auth.signOut();
+            }
+
+        }
+
+        window.customElements.define(MyLogin.is, MyLogin);
+    </script>
+</dom-module>

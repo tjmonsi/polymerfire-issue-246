@@ -1,0 +1,41 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="my-header.html">
+<link rel="import" href="my-login.html">
+
+<dom-module id="my-app">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+
+        <h2>polymerfire-issue-246</h2>
+
+        <firebase-app
+                id="firebase"
+                auth-domain="polymerfire-issue-246.firebaseapp.com"
+                database-url="https://polymerfire-issue-246.firebaseio.com"
+                api-key="AIzaSyB_LwspGoBuYrMYq2xn3mmOOYBNA7TX_hA">
+        </firebase-app>
+
+        <my-header></my-header>
+
+        <br><br>
+
+        <my-login></my-login>
+    </template>
+
+    <script>
+        class MyApp extends Polymer.Element {
+
+            static get is() {
+                return 'my-app';
+            }
+
+        }
+
+        window.customElements.define(MyApp.is, MyApp);
+    </script>
+</dom-module>

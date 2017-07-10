@@ -1,0 +1,38 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+
+<dom-module id="my-header">
+    <template>
+        <style>
+            :host {
+                border: 1px solid #666;
+                display: block;
+                padding: 16px
+            }
+
+            div {
+                color: #555;
+                font-weight: bold;
+            }
+        </style>
+
+        <firebase-auth id="auth" user="{{user}}"></firebase-auth>
+
+        <div>myheader.html</div>
+
+        <p>Display name is "[[user.displayName]]"</p>
+    </template>
+
+    <script>
+        class MyHeader extends Polymer.Element {
+
+            static get is() {
+                return 'my-header';
+            }
+
+        }
+
+        window.customElements.define(MyHeader.is, MyHeader);
+    </script>
+</dom-module>
