@@ -25,9 +25,9 @@
 
         <firebase-auth id="auth" user="{{user}}"></firebase-auth>
 
-        <template is="dom-if" if="[[user]]">
-            <div>mylogin.html</div>
+        <div>mylogin.html</div>
 
+        <template is="dom-if" if="[[user]]">
             <p>Username is "[[user.displayName]]"</p>
         </template>
 
