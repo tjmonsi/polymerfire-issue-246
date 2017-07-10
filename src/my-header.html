@@ -21,7 +21,9 @@
 
         <div>myheader.html</div>
 
-        <p>Display name is "[[user.displayName]]"</p>
+        <template is="dom-if" if="[[user]]">
+            <p>Display name is "[[user.displayName]]"</p>
+        </template>
     </template>
 
     <script>
