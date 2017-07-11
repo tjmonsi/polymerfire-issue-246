@@ -20,11 +20,11 @@
                 api-key="AIzaSyB_LwspGoBuYrMYq2xn3mmOOYBNA7TX_hA">
         </firebase-app>
 
-        <my-header></my-header>
+        <my-header user="{{user}}"></my-header>
 
         <br><br>
 
-        <my-login></my-login>
+        <my-login user="{{user}}"></my-login>
     </template>
 
     <script>
@@ -32,6 +32,14 @@
 
             static get is() {
                 return 'my-app';
+            }
+
+            static get properties() {
+                return {
+                    user: {
+                        type: Object
+                    }
+                }
             }
 
         }

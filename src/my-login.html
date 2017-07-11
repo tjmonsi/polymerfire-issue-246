@@ -53,15 +53,17 @@
             static get properties() {
                 return {
                     user: {
-                        type: Object
+                        type: Object,
+                        notify: true
                     }
                 }
             }
 
             changelogin() {
-                this.user.updateProfile({
+                this.$.auth.auth.currentUser.updateProfile({
                     displayName: UUID.generate()
                 }).then(() => {
+                    this.notifyPath('user.displayName')
                     console.log('Display name changed with success');
                     // the display name below is correct and updated
                     console.log(this.user);
