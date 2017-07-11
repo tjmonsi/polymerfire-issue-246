@@ -60,7 +60,7 @@
             }
 
             changelogin() {
-                this.$.auth.auth.currentUser.updateProfile({
+                this.user.updateProfile({
                     displayName: UUID.generate()
                 }).then(() => {
                     this.notifyPath('user.displayName')
